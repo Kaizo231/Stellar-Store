@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Store – سلة المشتريات</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="logo">
+            <h1>Stellar Store</h1>
+            <span>المتجر الرقمي الأول</span>
+        </div>
+        <div class="social-icons">
+            <a href="https://discord.gg/4xdy38BU9E" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+            <a href="https://www.instagram.com/stellatstore/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </header>
+
+    <nav class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="netflix.html">نتفليكس</a>
+        <a href="steam.html">ستيم</a>
+        <a href="hosting.html">هوستات</a>
+    </nav>
+
+    <div class="cart-container">
+        <h2 style="color: #ff8c00; text-align: center; font-size: 2rem; margin: 20px 0;">
+            <i class="fas fa-shopping-cart"></i> سلة المشتريات
+        </h2>
+        
+        <div id="cartItems"></div>
+        
+        <div class="cart-total" id="cartTotal">
+            <h3>المجموع: <span id="totalPrice">$0.00</span></h3>
+            <br>
+            <button class="btn-primary" onclick="sendOrder()" style="font-size: 1.2rem; padding: 14px 40px;">
+                <i class="fab fa-discord"></i> إرسال الطلب
+            </button>
+            <button class="btn-secondary" onclick="clearCart()" style="margin-right: 15px;">
+                <i class="fas fa-trash"></i> إفراغ السلة
+            </button>
+            <br><br>
+            <a href="steam.html" class="btn-secondary" style="display: inline-block; margin-top: 10px;">
+                <i class="fas fa-arrow-right"></i> متابعة التسوق
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span>2026 Stellar Store</span>
+        <span>📩 <a href="mailto:mustafahadi8070@gmail.com">mustafahadi8070@gmail.com</a></span>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1543400232237273201/fpESUrDcPbESDCgnw6egw2yCIvtPyTpJ423PEvzuFEHoixLRosCWOgUimw6Recoctsbl';
+
+// عرض محتويات السلة
+function renderCart() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const container = document.getElementById('cartItems');
+    const totalSpan = document.getElementById('totalPrice');
+    
+    if (cart.length === 0) {
+        container.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>السلة فارغة</h3>
+                <p>أضف بعض الألعاب من صفحة ستيم</p>
+                <br>
+                <a href="steam.html" class="btn-primary" style="font-size: 1rem; padding: 12px 30px;">
+                    <i class="fas fa-arrow-right"></i> تسوق الآن
+                </a>
+            </div>
+        `;
+        totalSpan.textContent = '$0.00';
+        document.getElementById('cartTotal').style.display = 'none';
+        return;
+    }
+    
+    document.getElementById('cartTotal').style.display = 'block';
+    let total = 0;
+    let html = '';
+    
+    cart.forEach((item, index) => {
+        const priceNum = parseFloat(item.price.replace('$', ''));
+        const subtotal = priceNum * (item.quantity || 1);
+        total += subtotal;
+        
+        html += `
+            <div class="cart-item">
+                <div class="item-details">
+                    <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60x60/1a1040/ff8c00?text=${encodeURIComponent(item.name)}'">
+                    <h4>${item.name}</h4>
+                    <span>${item.price}</span>
+                    <span style="color: #ffd9b3;">الكمية: ${item.quantity || 1}</span>
+                    <span style="color: #ff8c00;">المجموع: $${subtotal.toFixed(2)}</span>
+                </div>
+                <button class="btn-danger" onclick="removeItem(${index})">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        `;
+    });
+    
+    container.innerHTML = html;
+    totalSpan.textContent = `$${total.toFixed(2)}`;
+    updateCartCount();
+}
+
+// حذف عنصر من السلة
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+    updateCartCount();
+    showToast('تم حذف المنتج من السلة');
+}
+
+// إفراغ السلة
+function clearCart() {
+    if (confirm('هل أنت متأكد من إفراغ السلة؟')) {
+        localStorage.setItem('cart', '[]');
+        renderCart();
+        updateCartCount();
+        showToast('تم إفراغ السلة');
+    }
+}
+
+// تحديث عدد السلة
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    document.getElementById('cartCount').textContent = count;
+}
+
+// إظهار إشعار
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// إرسال الطلب عبر Webhook
+async function sendOrder() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    if (cart.length === 0) {
+        showToast('السلة فارغة! أضف بعض المنتجات أولاً');
+        return;
+    }
+    
+    let total = 0;
+    let itemsList = cart.map(item => {
+        const priceNum = parseFloat(item.price.replace('$', ''));
+        const subtotal = priceNum * (item.quantity || 1);
+        total += subtotal;
+        return `• ${item.name} × ${item.quantity || 1} = $${subtotal.toFixed(2)}`;
+    }).join('\n');
+    
+    const embed = {
+        title: '🛒 طلب جديد من Stellar Store',
+        description: `**المنتجات المطلوبة:**\n${itemsList}`,
+        color: 0xff8c00,
+        fields: [
+            {
+                name: '💰 المجموع الكلي',
+                value: `**$${total.toFixed(2)}**`,
+                inline: true
+            },
+            {
+                name: '📦 عدد المنتجات',
+                value: `**${cart.length}** منتج`,
+                inline: true
+            }
+        ],
+        footer: {
+            text: `تم الطلب في ${new Date().toLocaleString('ar-IQ')}`
+        },
+        timestamp: new Date().toISOString()
+    };
+    
+    try {
+        const response = await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ embeds: [embed] })
+        });
+        
+        if (response.ok) {
+            showToast('✅ تم إرسال الطلب بنجاح! سيتم التواصل معك قريباً');
+            localStorage.setItem('cart', '[]');
+            setTimeout(() => renderCart(), 1000);
+            updateCartCount();
+        } else {
+            showToast('❌ حدث خطأ في إرسال الطلب. حاول مرة أخرى');
+        }
+    } catch (error) {
+        showToast('❌ خطأ في الاتصال. تأكد من اتصالك بالإنترنت');
+        console.error(error);
+    }
+}
+
+// تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    renderCart();
+    updateCartCount();
+});
+</script>
+</body>
+</html>
