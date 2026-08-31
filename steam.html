@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Store – ألعاب ستيم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="logo">
+            <h1>Stellar Store</h1>
+            <span>المتجر الرقمي الأول</span>
+        </div>
+        <div class="social-icons">
+            <a href="https://discord.gg/4xdy38BU9E" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+            <a href="https://www.instagram.com/stellatstore/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </header>
+
+    <nav class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="netflix.html">نتفليكس</a>
+        <a href="steam.html" class="active">ستيم</a>
+        <a href="hosting.html">هوستات</a>
+        <a href="subscriptions.html">اشتراكات</a>
+        <a href="accounts.html">حسابات</a>
+    </nav>
+
+    <div style="text-align: center; margin: 20px 0 30px;">
+        <h2 style="color: #ff8c00; font-size: 2.5rem;">ألعاب ستيم</h2>
+        <p style="color: #ffd9b3; font-size: 1.2rem;">اختر لعبتك المفضلة وأضفها إلى السلة</p>
+    </div>
+
+    <div class="games-grid" id="gamesGrid"></div>
+
+    <div class="footer">
+        <span>2026 Stellar Store</span>
+        <span><i class="fas fa-shield-alt" style="color: #ff8c00;"></i> دفع آمن</span>
+        <span>📩 <a href="mailto:mustafahadi8070@gmail.com">mustafahadi8070@gmail.com</a></span>
+    </div>
+</div>
+
+<div class="toast" id="toast">تمت الإضافة إلى السلة</div>
+
+<script src="games-data.js"></script>
+<script>
+function renderGames() {
+    const grid = document.getElementById('gamesGrid');
+    grid.innerHTML = '';
+    games.forEach(game => {
+        const card = document.createElement('div');
+        card.className = 'game-card';
+        card.innerHTML = `
+            <img src="${game.image}" alt="${game.name}" onerror="this.src='https://via.placeholder.com/200x200/1a1040/ff8c00?text=${encodeURIComponent(game.name)}'">
+            <div class="game-info">
+                <h3>${game.name}</h3>
+                <div class="game-price">${game.price}</div>
+                <button class="btn-cart" onclick="addToCart(${game.id})">
+                    <i class="fas fa-plus-circle"></i> أضف للسلة
+                </button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function addToCart(gameId) {
+    const game = games.find(g => g.id === gameId);
+    if (!game) return;
+
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const existing = cart.find(item => item.id === gameId);
+    
+    if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+        cart.push({ ...game, quantity: 1 });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    showToast(`تمت إضافة "${game.name}" إلى السلة`);
+}
+
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    document.getElementById('cartCount').textContent = count;
+}
+
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderGames();
+    updateCartCount();
+});
+</script>
+</body>
+</html>
