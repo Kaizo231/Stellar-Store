@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Store – كريديت ديسكورد</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .credit-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 30px 35px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 140, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .credit-section:hover {
+            border-color: #ff8c00;
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.05);
+        }
+        .credit-section h3 {
+            color: #ff8c00;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .credit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .credit-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 18px 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .credit-item:hover {
+            background: rgba(255, 140, 0, 0.1);
+            border-color: #ff8c00;
+            transform: scale(1.02);
+        }
+        .credit-item .label {
+            color: #ffd9b3;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .credit-item .amount {
+            color: #ff8c00;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+        .contact-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #5865F2, #4752c4);
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.3rem;
+            padding: 16px 55px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+            border: none;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+        }
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(88, 101, 242, 0.5);
+            filter: blur(0.2px) brightness(1.2);
+        }
+        .contact-section {
+            text-align: center;
+            margin: 40px 0 30px;
+            padding: 35px 25px;
+            background: rgba(88, 101, 242, 0.08);
+            border-radius: 30px;
+            border: 2px solid rgba(88, 101, 242, 0.2);
+            transition: all 0.3s ease;
+        }
+        .contact-section:hover {
+            border-color: #5865F2;
+            box-shadow: 0 0 40px rgba(88, 101, 242, 0.05);
+        }
+        .contact-section .contact-icon {
+            font-size: 3.5rem;
+            color: #5865F2;
+            margin-bottom: 15px;
+        }
+        .contact-section p {
+            color: #ffd9b3;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .contact-section .highlight {
+            color: #5865F2;
+            font-weight: 700;
+        }
+        .badge-discord {
+            display: inline-block;
+            background: linear-gradient(135deg, #5865F2, #4752c4);
+            color: #fff;
+            font-weight: 900;
+            padding: 3px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-right: 10px;
+        }
+        .info-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border: 1px dashed rgba(255, 140, 0, 0.15);
+        }
+        .info-box p {
+            color: #928bb8;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        .info-box i {
+            color: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="logo">
+            <h1>Stellar Store</h1>
+            <span>المتجر الرقمي الأول</span>
+        </div>
+        <div class="social-icons">
+            <a href="https://discord.gg/4xdy38BU9E" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+            <a href="https://www.instagram.com/stellatstore/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </header>
+
+    <nav class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="netflix.html">نتفليكس</a>
+        <a href="steam.html">ستيم</a>
+        <a href="hosting.html">هوستات</a>
+        <a href="subscriptions.html">اشتراكات</a>
+        <a href="accounts.html">حسابات</a>
+        <a href="discord-credit.html" class="active">كريديت ديسكورد</a>
+    </nav>
+
+    <div style="text-align: center; margin: 20px 0 30px;">
+        <h2 style="color: #ff8c00; font-size: 2.5rem;"><i class="fab fa-discord" style="color: #5865F2;"></i> كريديت ديسكورد</h2>
+        <p style="color: #ffd9b3; font-size: 1.2rem;">أفضل الأسعار لشحن كريديت ديسكورد</p>
+    </div>
+
+    <!-- ====== ريال سعودي ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">ريال سعودي</span> ر.س</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">0.03 ر.س</div><div class="amount">900,000 m</div></div>
+            <div class="credit-item"><div class="label">3 ر.س</div><div class="amount">90,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== سوا ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">سوا</span> سوا</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 سوا</div><div class="amount">24,300,000 m</div></div>
+            <div class="credit-item"><div class="label">17 سوا</div><div class="amount">413,100,000 m</div></div>
+            <div class="credit-item"><div class="label">20 سوا</div><div class="amount">486,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== مغربي ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">مغربي</span> درهم مغربي</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 مغربي</div><div class="amount">11,250,000 m</div></div>
+            <div class="credit-item"><div class="label">10 مغربي</div><div class="amount">112,500,000 m</div></div>
+            <div class="credit-item"><div class="label">50 مغربي</div><div class="amount">562,500,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== لايك كارد ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">لايك كارد</span> Like Card</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 لايك كارد</div><div class="amount">24,300,000 m</div></div>
+            <div class="credit-item"><div class="label">20 لايك كارد</div><div class="amount">486,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== ليرة سوري ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">ليرة سوري</span> ل.س</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">150 ليرة سوري</div><div class="amount">108,000,000 m</div></div>
+            <div class="credit-item"><div class="label">300 ليرة سوري</div><div class="amount">216,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== ريزر جولد ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">ريزر جولد</span> Razer Gold</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 ريزر جولد</div><div class="amount">93,600,000 m</div></div>
+            <div class="credit-item"><div class="label">5 ريزر جولد</div><div class="amount">468,000,000 m</div></div>
+            <div class="credit-item"><div class="label">10 ريزر جولد</div><div class="amount">936,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== دينار جزائري ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">دينار جزائري</span> د.ج</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">270 د.ج</div><div class="amount">108,000,000 m</div></div>
+            <div class="credit-item"><div class="label">1080 د.ج</div><div class="amount">432,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== ليرة تركي ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">ليرة تركي</span> ل.ت</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">0.45 ليرة تركي</div><div class="amount">900,000 m</div></div>
+            <div class="credit-item"><div class="label">4.5 ليرة تركي</div><div class="amount">9,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== كريبتو ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">كريبتو</span> Crypto</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 كريبتو</div><div class="amount">114,300,000 m</div></div>
+            <div class="credit-item"><div class="label">10 كريبتو</div><div class="amount">1,143,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== اردني ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">دينار اردني</span> د.أ</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 اردني</div><div class="amount">135,000,000 m</div></div>
+            <div class="credit-item"><div class="label">10 اردني</div><div class="amount">1,350,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== اسيا ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">اسيا</span> Asia</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">1 اسيا</div><div class="amount">67,950,000 m</div></div>
+            <div class="credit-item"><div class="label">5 اسيا</div><div class="amount">337,950,000 m</div></div>
+            <div class="credit-item"><div class="label">10 اسيا</div><div class="amount">675,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== تونسي ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">دينار تونسي</span> د.ت</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">3.4 تونسي</div><div class="amount">108,000,000 m</div></div>
+            <div class="credit-item"><div class="label">10 تونسي</div><div class="amount">316,800,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ====== مصري ====== -->
+    <div class="credit-section">
+        <h3><span class="badge-discord">جنيه مصري</span> ج.م</h3>
+        <div class="credit-grid">
+            <div class="credit-item"><div class="label">0.4 مصري</div><div class="amount">900,000 m</div></div>
+            <div class="credit-item"><div class="label">4 مصري</div><div class="amount">9,000,000 m</div></div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- ====== قسم التواصل معنا في الديسكورد (واضح وكبير) ====== -->
+    <!-- ============================================================ -->
+    <div class="contact-section">
+        <div class="contact-icon">
+            <i class="fab fa-discord"></i>
+        </div>
+        <h3 style="color: #fff; font-size: 1.8rem; margin-bottom: 10px;">
+            تواصل معنا في <span style="color: #5865F2;">ديسكورد</span>
+        </h3>
+        <p>
+            للاستفسار عن الأسعار أو للشراء، تواصل معنا عبر سيرفر الديسكورد الخاص بنا
+            <br>
+            فريق الدعم جاهز للرد على استفساراتك <span style="color: #ff8c00;">24/7</span>
+        </p>
+        <div class="info-box">
+            <p><i class="fas fa-info-circle"></i> جميع الأسعار المذكورة أعلاه هي للاستعلام، للشراء يرجى التواصل معنا عبر ديسكورد</p>
+        </div>
+        <br>
+        <a href="https://discord.gg/4xdy38BU9E" target="_blank" class="contact-btn">
+            <i class="fab fa-discord"></i> انضم إلى سيرفر الديسكورد
+        </a>
+        <br><br>
+        <p style="color: #928bb8; font-size: 0.9rem; margin-top: 10px;">
+            <i class="fas fa-shield-alt" style="color: #ff8c00;"></i> 
+            تواصل معنا وسنقوم بخدمتك في أقرب وقت
+        </p>
+    </div>
+
+    <div class="footer">
+        <span>2026 Stellar Store</span>
+        <span>📩 <a href="mailto:mustafahadi8070@gmail.com">mustafahadi8070@gmail.com</a></span>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const count = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    document.getElementById('cartCount').textContent = count;
+}
+
+document.addEventListener('DOMContentLoaded', updateCartCount);
+</script>
+</body>
+</html>
