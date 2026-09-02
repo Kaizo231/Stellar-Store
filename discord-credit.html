@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stellar Store – كريديت ديسكورد</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .credit-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            padding: 30px 35px;
+            margin: 25px 0;
+            border: 1px solid rgba(255, 140, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        .credit-section:hover {
+            border-color: #ff8c00;
+            box-shadow: 0 0 30px rgba(255, 140, 0, 0.05);
+        }
+        .credit-section h3 {
+            color: #ff8c00;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .credit-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+        .credit-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 18px 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .credit-item:hover {
+            background: rgba(255, 140, 0, 0.1);
+            border-color: #ff8c00;
+            transform: scale(1.02);
+        }
+        .credit-item .label {
+            color: #ffd9b3;
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+        .credit-item .amount {
+            color: #ff8c00;
+            font-weight: 900;
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+        .contact-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #5865F2, #4752c4);
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.2rem;
+            padding: 14px 50px;
+            border-radius: 60px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 10px 25px rgba(88, 101, 242, 0.4);
+            border: none;
+            cursor: pointer;
+            font-family: 'Cairo', sans-serif;
+        }
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(88, 101, 242, 0.5);
+            filter: blur(0.2px) brightness(1.2);
+        }
+        .contact-section {
+            text-align: center;
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(88, 101, 242, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(88, 101, 242, 0.15);
+        }
+        .contact-section p {
+            color: #ffd9b3;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        .badge-discord {
+            display: inline-block;
+            background: linear-gradient(135deg, #5865F2, #4752c4);
+            color: #fff;
+            font-weight: 900;
+            padding: 3px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="header">
+        <div class="logo">
+            <h1>Stellar Store</h1>
+            <span>المتجر الرقمي الأول</span>
+        </div>
+        <div class="social-icons">
+            <a href="https://discord.gg/4xdy38BU9E" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
+            <a href="https://www.instagram.com/stellatstore/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            <a href="cart.html" class="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+    </header>
+
+    <nav class="nav-links">
